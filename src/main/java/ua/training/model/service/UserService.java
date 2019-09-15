@@ -1,0 +1,38 @@
+package ua.training.model.service;
+
+import ua.training.model.dao.DaoFactory;
+import ua.training.model.dao.UserDao;
+import ua.training.model.entity.Role;
+import ua.training.model.entity.User;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
+
+public class UserService {
+    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private UserDao userDao = daoFactory.createUserDao();
+
+    public List<User> findAllUsers(){
+        return userDao.findAll();
+    }
+
+    public void addUser(String email, String name, String password, Role role) throws SQLException {
+        User newUser = User.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .role(role)
+                .active(true)
+                .build();
+        userDao.add(newUser);
+    }
+
+    public Optional<User> findUser(String email, String password){
+        Optional<User> user = Optional.ofNullable((userDao.findByEmail(email)));
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user;
+        }
+        return Optional.empty();
+    }
+}
