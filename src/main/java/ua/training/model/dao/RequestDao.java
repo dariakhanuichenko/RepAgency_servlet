@@ -7,4 +7,6 @@ import java.util.List;
 public interface RequestDao extends GenericDao<Request>{
 
     List<Request> findByCreator(String creator);
+
+    List<Request> findByMasterAndStatus(String master, String status);
 }

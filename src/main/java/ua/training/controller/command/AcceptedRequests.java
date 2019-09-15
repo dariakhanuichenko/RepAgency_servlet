@@ -4,25 +4,24 @@ import ua.training.model.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-public class UserAllRequest implements Command {
-
+public class AcceptedRequests implements Command {
     private RequestService requestService;
 
-    public UserAllRequest(RequestService requestService) {
+    public AcceptedRequests(RequestService requestService) {
         this.requestService = requestService;
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-        String userName= (String)request.getSession().getAttribute( "userName");
+        String master= (String)request.getSession().getAttribute( "userName");
+
 
         try {
-            request.setAttribute("requests",requestService.findByCreator(userName));
+            request.setAttribute("acceptedRequests",requestService.findByMasterAndStatus(master, "accepted"));
 
         } catch ( java.lang.Exception e) {
             e.printStackTrace();
         }
-        return "/WEB-INF/user/user-all-request.jsp";
+        return "/WEB-INF/master/master-accepted-request.jsp";
     }
 }

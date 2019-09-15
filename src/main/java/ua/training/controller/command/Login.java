@@ -45,9 +45,9 @@ public class Login implements Command {
 
         request.getSession(true).setAttribute("userName", email);
 
-        if (user.get().getRole().equals(Role.ROLE_ADMIN)) {
-            CommandUtility.setUserRole(request, Role.ROLE_ADMIN, email);
-            return "/WEB-INF/admin/adminbasic.jsp";
+        if (user.get().getRole().equals(Role.ROLE_MASTER)) {
+            CommandUtility.setUserRole(request, Role.ROLE_MASTER, email);
+            return "redirect:/api/app/master/accepted_requests";
         } else if (user.get().getRole().equals(Role.ROLE_USER)) {
             CommandUtility.setUserRole(request, Role.ROLE_USER, email);
             return "/WEB-INF/user/user-create-request.jsp";

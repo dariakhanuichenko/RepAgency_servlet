@@ -18,8 +18,8 @@ public class AccessFilter  implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String path = request.getRequestURI();
-        if (path.contains("admin")) {
-            if (request.getSession().getAttribute("role") == Role.ROLE_ADMIN) {
+        if (path.contains("master")) {
+            if (request.getSession().getAttribute("role") == Role.ROLE_MASTER) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 request.setAttribute("error", true);

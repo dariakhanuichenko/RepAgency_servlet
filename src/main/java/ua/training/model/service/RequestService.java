@@ -30,12 +30,17 @@ public class RequestService {
     public List<Request>findByCreator(String creator){
         return requestDao.findByCreator(creator);
     }
+
     public void updateRequest(String status, Long id){
         Request newRequest=Request.builder()
                 .status(status)
                 .id(id)
                 .build();
         requestDao.update(newRequest);
+    }
+
+    public  List<Request> findByMasterAndStatus(String master, String status){
+        return requestDao.findByMasterAndStatus(master, status);
     }
 
 }

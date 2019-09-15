@@ -57,11 +57,11 @@
 <%--        </div>--%>
 <%--    </div>--%>
 <%--</div>--%>
-<a href="${pageContext.request.contextPath}/app/all_requests"> See my requests</a>
+<a href="${pageContext.request.contextPath}/app/user/all_requests"> See my requests</a>
 <div  style="margin:0 auto;" class="row justify-content-center align-items-center align-content-center align-self-center">
     <input name="request" type="hidden"/>
     <div class="col" style="width: 404px;">
-        <form  action="${pageContext.request.contextPath}/app/create_request"
+        <form  action="${pageContext.request.contextPath}/app/user/create_request"
                method="get">
             <label>New Request</label>
             <br/>
