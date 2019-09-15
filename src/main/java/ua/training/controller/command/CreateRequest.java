@@ -7,7 +7,12 @@ import java.sql.SQLException;
 
 public class CreateRequest implements Command{
 
-    private RequestService requestService=new RequestService();
+    private RequestService requestService;
+
+    public CreateRequest(RequestService requestService) {
+        this.requestService = requestService;
+    }
+
     @Override
     public String execute(HttpServletRequest request) {
         String requestName=request.getParameter("request");

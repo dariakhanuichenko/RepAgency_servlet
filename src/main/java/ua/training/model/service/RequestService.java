@@ -27,6 +27,9 @@ public class RequestService {
         requestDao.add(newRequest);
     }
 
+    public List<Request>findByCreator(String creator){
+        return requestDao.findByCreator(creator);
+    }
     public void updateRequest(String status, Long id){
         Request newRequest=Request.builder()
                 .status(status)

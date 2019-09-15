@@ -2,6 +2,8 @@ package ua.training.controller;
 
 import ua.training.controller.command.*;
 import ua.training.controller.command.Exception;
+import ua.training.model.entity.Request;
+import ua.training.model.service.RequestService;
 import ua.training.model.service.UserService;
 
 import javax.servlet.ServletConfig;
@@ -19,13 +21,16 @@ public class Servlet extends HttpServlet {
 
     public void init(ServletConfig servletConfig) {
         UserService userService = new UserService();
+        RequestService requestService=new RequestService();
+
         servletConfig.getServletContext()
                 .setAttribute("loggedUsers", new HashSet<String>());
         commands.put("logout", new LogOut());
         commands.put("login", new Login(userService));
         commands.put("registration", new Registration(userService));
         commands.put("exception", new Exception());
-        commands.put("create_request", new CreateRequest());
+        commands.put("create_request", new CreateRequest(requestService));
+        commands.put("all_requests", new UserAllRequest(requestService));
     }
 
     public void doGet(HttpServletRequest request,

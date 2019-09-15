@@ -11,8 +11,9 @@ public class JDBCRequestDao implements RequestDao {
 
     private String queryAdd = "INSERT INTO request ( request, status, price, creator) VALUES (?,?,?,?)";
     private String queryFindAll = "SELECT * FROM request";
+    private String queryFindByCreator = "SELECT * FROM request WHERE creator=?";
     private String queryUpdateRequest = "UPDATE request SET status = ? WHERE id = ?";
-    private String queryDeleteById = "DELETE FROM user  WHERE id = ?";
+    private String queryDeleteById = "DELETE FROM request  WHERE id = ?";
 
     private Connection connection;
 
@@ -28,10 +29,9 @@ public class JDBCRequestDao implements RequestDao {
             ps.setInt(3, 0);
             ps.setString(4, entity.getCreator());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Invalid input");
         }
-//        catch (SQLException e) {
-//            throw new RuntimeException("Invalid input");
-//        }
     }
 
     @Override
@@ -48,6 +48,23 @@ public class JDBCRequestDao implements RequestDao {
             while (rs.next()) {
                 Request result = extractFromResultSet(rs);
                 resultList.add(result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Request> findByCreator(String creator) {
+        List<Request> resultList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement
+                (queryFindByCreator)) {
+            ps.setString(1, creator);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                resultList.add(extractFromResultSet(rs));
+                System.out.println(resultList.get(resultList.size()-1));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
