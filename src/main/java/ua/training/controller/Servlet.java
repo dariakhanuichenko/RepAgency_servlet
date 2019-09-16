@@ -29,10 +29,16 @@ public class Servlet extends HttpServlet {
         commands.put("login", new Login(userService));
         commands.put("registration", new Registration(userService));
         commands.put("exception", new Exception());
+
         commands.put("user/create_request", new CreateRequest(requestService));
         commands.put("user/all_requests", new UserAllRequest(requestService));
+
         commands.put("master/accepted_requests", new AcceptedRequests(requestService));
         commands.put("master/accepted_requests/make", new MakeInProgress(requestService));
+        commands.put("master/in_progress_requests", new InProgressRequests(requestService));
+        commands.put("master/in_progress_requests/done", new MakeCompleted(requestService));
+        commands.put("master/in_progress_requests/beyond_repair", new MakeBeyondRepair(requestService));
+
     }
 
     public void doGet(HttpServletRequest request,

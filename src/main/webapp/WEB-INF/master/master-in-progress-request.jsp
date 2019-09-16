@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Accepted requests</title>
+    <title>In progress requests</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<a href="${pageContext.request.contextPath}/app/master/in_progress_requests">In progress</a>
+
 <div style="margin-left:20px; margin-right: 20px;" class="row">
     <div class="col">
         <div class="table-responsive">
@@ -28,16 +28,19 @@
                     <th>price</th>
                 </tr>
                 </thead>
-                <c:forEach items="${acceptedRequests}" var="request">
+                <c:forEach items="${inProgressRequests}" var="request">
                     <tbody>
                     <tr>
                         <td><c:out value="${request.request}"/></td>
                         <td><c:out value="${request.status}"/></td>
                         <td><c:out value="${request.price}"/></td>
                         <td>
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/done?id=${request.id}">
+                                Make completed
+                            </a>
 
-                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?id=${request.id}">Make
-                                in progress
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/beyond_repair?id=${request.id}">
+                                Make beyond repair
                             </a>
                         </td>
                     </tr>
