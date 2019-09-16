@@ -35,9 +35,8 @@
                         <td><c:out value="${request.status}"/></td>
                         <td><c:out value="${request.price}"/></td>
                         <td>
-                                <%--                                <input type="hidden" name="id"  value="${request.id}">--%>
-                            <h2>${request.id}</h2>
-                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?(id=${request.id})">Make
+
+                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?id=${request.id}">Make
                                 in progress
                             </a>
                         </td>
