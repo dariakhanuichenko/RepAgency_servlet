@@ -50,13 +50,13 @@
     </div>
 </nav>
 
-
 <div class="row">
     <div class="col">
         <p class="d-lg-flex justify-content-lg-center align-items-lg-end" style="font-size: 23px;">
-            <strong>Accepted Requests</strong></p>
+            <strong>Completed Requests</strong></p>
     </div>
 </div>
+
 <div style="margin-left:20px; margin-right: 20px;" class="row">
 
     <div class="col">
@@ -70,18 +70,13 @@
                     <th>price</th>
                 </tr>
                 </thead>
-                <c:forEach items="${acceptedRequests}" var="request">
+                <c:forEach items="${completedRequests}" var="request">
                     <tbody>
                     <tr>
                         <td><c:out value="${request.request}"/></td>
                         <td><c:out value="${request.status}"/></td>
                         <td><c:out value="${request.price}"/></td>
-                        <td>
 
-                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?id=${request.id}">Make
-                                in progress
-                            </a>
-                        </td>
                     </tr>
                     </tbody>
                 </c:forEach>

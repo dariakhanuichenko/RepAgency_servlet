@@ -38,7 +38,7 @@ public class Servlet extends HttpServlet {
         commands.put("master/in_progress_requests", new InProgressRequests(requestService));
         commands.put("master/in_progress_requests/done", new MakeCompleted(requestService));
         commands.put("master/in_progress_requests/beyond_repair", new MakeBeyondRepair(requestService));
-
+        commands.put("master/completed_requests", new CompletedRequests(requestService));
     }
 
     public void doGet(HttpServletRequest request,
