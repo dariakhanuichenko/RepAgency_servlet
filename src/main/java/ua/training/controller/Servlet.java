@@ -2,7 +2,7 @@ package ua.training.controller;
 
 import ua.training.controller.command.*;
 import ua.training.controller.command.Exception;
-import ua.training.model.entity.Request;
+import ua.training.model.service.CommentService;
 import ua.training.model.service.RequestService;
 import ua.training.model.service.UserService;
 
@@ -22,6 +22,7 @@ public class Servlet extends HttpServlet {
     public void init(ServletConfig servletConfig) {
         UserService userService = new UserService();
         RequestService requestService=new RequestService();
+        CommentService commentService=new CommentService();
 
         servletConfig.getServletContext()
                 .setAttribute("loggedUsers", new HashSet<String>());
@@ -32,6 +33,7 @@ public class Servlet extends HttpServlet {
 
         commands.put("user/create_request", new CreateRequest(requestService));
         commands.put("user/all_requests", new UserAllRequest(requestService));
+        commands.put("user/create_comment", new CreateComment(commentService,userService));
 
         commands.put("master/accepted_requests", new AcceptedRequests(requestService));
         commands.put("master/accepted_requests/make", new MakeInProgress(requestService));
@@ -41,6 +43,7 @@ public class Servlet extends HttpServlet {
         commands.put("master/completed_requests", new CompletedRequests(requestService));
 
         commands.put("manager/new_requests", new NewRequests(requestService));
+        commands.put("manager/all-comments", new ManagerAllComments(commentService));
     }
 
     public void doGet(HttpServletRequest request,

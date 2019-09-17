@@ -13,6 +13,7 @@ public class JDBCUserDao implements UserDao {
     private String queryAdd = "INSERT INTO user (email , password , role , active) VALUES (? ,? ,? , ?)";
     private String queryFindByEmail = "SELECT * FROM user WHERE email = ?";
     private String queryFindAll = "SELECT * FROM user";
+    private String queryFindById = "SELECT * FROM user where id=?";
     private String queryUpdateUser = "UPDATE user SET email = ? , password = ?, role = ?, active = ? WHERE id = ?";
     private String queryDeleteById = "DELETE FROM user  WHERE id = ?";
     private Connection connection;
@@ -30,9 +31,9 @@ public class JDBCUserDao implements UserDao {
             ps.setBoolean(4, entity.isActive());
             ps.executeUpdate();
         }
-//        catch (SQLException e) {
-//            throw new RuntimeException("Invalid input");
-//        }
+        catch (SQLException e) {
+            throw new RuntimeException("Invalid input");
+        }
     }
 
     @Override
@@ -110,5 +111,20 @@ public class JDBCUserDao implements UserDao {
                 .role(Role.values()[rs.getInt("role")])
                 .active(rs.getBoolean("active"))
                 .build();
+    }
+
+    @Override
+    public User findById(Long id) {
+        try (PreparedStatement ps = connection.prepareStatement
+                (queryFindById)) {
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return extractFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

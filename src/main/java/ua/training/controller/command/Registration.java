@@ -34,6 +34,8 @@ public class Registration implements Command {
                 userRole=Role.ROLE_USER.name();
             if(role.equals("ROLE_MASTER"))
                 userRole=Role.ROLE_MASTER.name();
+            if(role.equals("ROLE_MANAGER"))
+                userRole=Role.ROLE_MANAGER.name();
             userService.addUser(email, name, password, Role.valueOf(userRole));
 
         } catch (SQLException | RuntimeException e) {

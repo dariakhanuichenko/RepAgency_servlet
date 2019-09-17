@@ -13,10 +13,6 @@ public class RequestService {
     private RequestDao requestDao = daoFactory.createRequestDao();
 
 
-    public List<Request> findAllUsers(){
-        return requestDao.findAll();
-    }
-
     public void addRequest(String request, String userName) throws SQLException {
         Request newRequest = Request.builder()
                 .request(request)
@@ -41,6 +37,10 @@ public class RequestService {
 
     public  List<Request> findByMasterAndStatus(String master, String status){
         return requestDao.findByMasterAndStatus(master, status);
+    }
+
+    public List<Request> findByStatus(String status){
+        return requestDao.findByStatus(status);
     }
 
 }

@@ -1,5 +1,6 @@
 package ua.training.model.dao.impl;
 
+import ua.training.model.dao.CommentDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.RequestDao;
 import ua.training.model.dao.UserDao;
@@ -20,6 +21,11 @@ public class JDBCDaoFactory extends DaoFactory {
     @Override
     public RequestDao createRequestDao() {
         return new JDBCRequestDao(getConnection());
+    }
+
+    @Override
+    public CommentDao createCommentDao() {
+        return new JDBCCommentDao(getConnection(), createUserDao());
     }
 
     private Connection getConnection(){
