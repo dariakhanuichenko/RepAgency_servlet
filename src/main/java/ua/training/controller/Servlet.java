@@ -43,6 +43,7 @@ public class Servlet extends HttpServlet {
         commands.put("master/completed_requests", new CompletedRequests(requestService));
 
         commands.put("manager/new_requests", new NewRequests(requestService));
+        commands.put("manager/new_requests/accept", new MakeAcceptedRequest(requestService,userService));
         commands.put("manager/all-comments", new ManagerAllComments(commentService));
     }
 

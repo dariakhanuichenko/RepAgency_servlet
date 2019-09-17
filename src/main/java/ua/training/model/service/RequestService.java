@@ -3,6 +3,7 @@ package ua.training.model.service;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.RequestDao;
 import ua.training.model.entity.Request;
+import ua.training.model.entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -43,4 +44,7 @@ public class RequestService {
         return requestDao.findByStatus(status);
     }
 
+    public void updateStatusAndPriceAndUser(Long id,String status,Long price, User user){
+         requestDao.updateStatusAndPriceAndUser(id, status,price,user);
+    }
 }

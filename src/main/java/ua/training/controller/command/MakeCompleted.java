@@ -17,7 +17,7 @@ public class MakeCompleted implements Command {
         try{
             System.out.println(request.getParameter("id"));
             Long id=Long.parseLong(request.getParameter("id"));
-            ;
+
             requestService.updateRequest("completed", id);
         }catch( java.lang.Exception e) {
             e.printStackTrace();

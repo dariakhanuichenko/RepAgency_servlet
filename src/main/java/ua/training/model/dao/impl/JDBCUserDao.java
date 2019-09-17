@@ -16,6 +16,8 @@ public class JDBCUserDao implements UserDao {
     private String queryFindById = "SELECT * FROM user where id=?";
     private String queryUpdateUser = "UPDATE user SET email = ? , password = ?, role = ?, active = ? WHERE id = ?";
     private String queryDeleteById = "DELETE FROM user  WHERE id = ?";
+
+    private String queryFindByRole = "SELECT * FROM user WHERE role = ?";
     private Connection connection;
 
     public JDBCUserDao(Connection connection) {
@@ -30,8 +32,7 @@ public class JDBCUserDao implements UserDao {
             ps.setInt(3, Arrays.asList(Role.values()).indexOf(entity.getRole()));
             ps.setBoolean(4, entity.isActive());
             ps.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Invalid input");
         }
     }
@@ -92,7 +93,8 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
     }
-////
+
+    ////
     @Override
     public void close() {
         try {
@@ -126,5 +128,23 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<User> findByRole(Integer role) {
+        List<User> resultList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement
+                (queryFindByRole)) {
+            ps.setLong(1, role);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                User result = extractFromResultSet(rs);
+                resultList.add(result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return resultList;
     }
 }

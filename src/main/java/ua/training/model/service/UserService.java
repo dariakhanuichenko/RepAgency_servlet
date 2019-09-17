@@ -43,4 +43,8 @@ public class UserService {
     public  Optional<User> findById(Long id){
         return Optional.ofNullable(userDao.findById(id));
     }
+
+    public Optional<List<User>>findByRole(Integer role){
+        return Optional.ofNullable(userDao.findByRole(role));
+    }
 }

@@ -2,6 +2,7 @@ package ua.training.model.dao.impl;
 
 import ua.training.model.dao.RequestDao;
 import ua.training.model.entity.Request;
+import ua.training.model.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class JDBCRequestDao implements RequestDao {
     private String queryFindByMasterAndStatus = "SELECT request.* FROM request  inner join user  on request.user_id=user.id where user.email=? and request.status=?";
 
     private String queryFindByStatus="SELECT request.* FROM request  where  request.status=?";
+
+    private String queryUpdateStatusAndPriceandMaster="UPDATE request SET status = ?, price=?, user_id=? WHERE id = ?";
     private Connection connection;
 
     public JDBCRequestDao(Connection connection) {
@@ -108,6 +111,20 @@ public class JDBCRequestDao implements RequestDao {
             throw new RuntimeException(e);
         }
         return resultList;
+    }
+
+    @Override
+    public void updateStatusAndPriceAndUser(Long id, String status, Long price, User user) {
+        try (PreparedStatement ps = connection.prepareStatement(
+                queryUpdateStatusAndPriceandMaster)) {
+            ps.setString(1, status);
+            ps.setLong(2,price);
+            ps.setLong(3,user.getId());
+            ps.setLong(4,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
