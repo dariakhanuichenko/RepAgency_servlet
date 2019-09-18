@@ -33,7 +33,7 @@
                         <td><c:out value="${request.status}"/></td>
 
                         <td>
-                            <a href="${pageContext.request.contextPath}/manager/new_requests/accept?id=${request.id}">
+                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/accept?id=${request.id}">
                                 Accept
                             </a>
                             <!-- <a href="#formAccept" class="accept">Accept</a>-->

@@ -17,19 +17,21 @@
 </head>
 <body>
 
-<form style="padding-top:75px" method="post" id="formAccept" action="${pageContext.request.contextPath}/manager/new_requests/accept">
+<form style="padding-top:75px" method="post" id="formAccept" action="${pageContext.request.contextPath}/app/manager/new_requests/accept/done">
     <label> price</label>
-    <input style="margin-left:20px; margin-right: 20px;" id="price"
+    <input style="margin-left:20px; margin-right: 20px;"
           name="price"
            type="text"
            class="form-control"
            pattern="[0-9]+"/>
-<%--    <input th:value="${param.id}" th:field="*{id}" type="hidden"/>--%>
+    <input value="${id}" name ="id" type="hidden"/>
 
     <label>master</label>
     <select name="email" >
 <c:forEach items="${masters}" var="master">
-        <option value="${master.email}"><c:out value="${master.email}"></c:out></option>
+        <option value="${master.email}">
+            <c:out value="${master.email}"/>
+        </option>
 </c:forEach>
     </select>
 

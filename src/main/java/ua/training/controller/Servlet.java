@@ -44,6 +44,7 @@ public class Servlet extends HttpServlet {
 
         commands.put("manager/new_requests", new NewRequests(requestService));
         commands.put("manager/new_requests/accept", new MakeAcceptedRequest(requestService,userService));
+        commands.put("manager/new_requests/accept/done", new MakeRequestAcceptedDone(requestService,userService));
         commands.put("manager/all-comments", new ManagerAllComments(commentService));
     }
 

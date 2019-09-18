@@ -20,19 +20,20 @@ public class MakeAcceptedRequest implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         try{
-            System.out.println(request.getParameter("id"));
+//            System.out.println(request.getParameter("id"));
             Long id=Long.parseLong(request.getParameter("id"));
-            String mastermail=request.getParameter("email");
-            Long price=Long.parseLong(request.getParameter("price"));
+//            String mastermail=request.getParameter("email");
+//            Long price=Long.parseLong(request.getParameter("price"));
 
+            request.setAttribute("id", id);
             request.setAttribute("masters",userService.findByRole(Arrays
                     .asList(Role.values())
                     .indexOf(Role.ROLE_MASTER)).get());
 
-            requestService.updateStatusAndPriceAndUser(id,"accepted",price,userService.findByEmail(mastermail).get());
+//            requestService.updateStatusAndPriceAndUser(id,"accepted",price,userService.findByEmail(mastermail).get());
         }catch( java.lang.Exception e) {
             e.printStackTrace();
         }
-        return "WEB-INF/manager/manager-accept-request.jsp";
+        return "/WEB-INF/manager/manager-accept-request.jsp";
     }
 }
