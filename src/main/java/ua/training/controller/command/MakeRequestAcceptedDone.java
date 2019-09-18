@@ -25,7 +25,6 @@ public class MakeRequestAcceptedDone implements Command {
             String mastermail=request.getParameter("email");
             Long price=Long.parseLong(request.getParameter("price"));
 
-//            String email=request.getParameter("email");
 
             requestService.updateStatusAndPriceAndUser(id,"accepted",price,userService.findByEmail(mastermail).get());
         }catch( java.lang.Exception e) {

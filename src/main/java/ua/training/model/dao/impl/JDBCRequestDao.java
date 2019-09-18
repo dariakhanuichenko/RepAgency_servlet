@@ -20,6 +20,8 @@ public class JDBCRequestDao implements RequestDao {
     private String queryFindByStatus="SELECT request.* FROM request  where  request.status=?";
 
     private String queryUpdateStatusAndPriceandMaster="UPDATE request SET status = ?, price=?, user_id=? WHERE id = ?";
+    private String queryUpdateStatusAndReason="UPDATE request SET status = ?, reason=? WHERE id = ?";
+
     private Connection connection;
 
     public JDBCRequestDao(Connection connection) {
@@ -121,6 +123,19 @@ public class JDBCRequestDao implements RequestDao {
             ps.setLong(2,price);
             ps.setLong(3,user.getId());
             ps.setLong(4,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateStatusAndReason(Long id, String status, String reason) {
+        try (PreparedStatement ps = connection.prepareStatement(
+                queryUpdateStatusAndReason)) {
+            ps.setString(1, status);
+            ps.setString(2,reason);
+            ps.setLong(3,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

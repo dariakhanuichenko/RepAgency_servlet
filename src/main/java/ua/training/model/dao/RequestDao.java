@@ -14,4 +14,6 @@ public interface RequestDao extends GenericDao<Request>{
     List<Request> findByStatus( String status);
 
     void updateStatusAndPriceAndUser(Long id, String status, Long price, User user);
+
+    void updateStatusAndReason(Long id, String status, String reason);
 }

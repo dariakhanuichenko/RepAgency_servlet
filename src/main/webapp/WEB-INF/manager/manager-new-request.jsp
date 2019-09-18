@@ -36,8 +36,9 @@
                             <a href="${pageContext.request.contextPath}/app/manager/new_requests/accept?id=${request.id}">
                                 Accept
                             </a>
-                            <!-- <a href="#formAccept" class="accept">Accept</a>-->
-<%--                            <a th:href="@{/manager/new_requests/reject?(id=${request.id})}">Reject</a>--%>
+                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/reject?id=${request.id}">
+                                Reject
+                            </a>
                         </td>
                     </tr>
                 </c:forEach>

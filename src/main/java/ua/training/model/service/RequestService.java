@@ -47,4 +47,8 @@ public class RequestService {
     public void updateStatusAndPriceAndUser(Long id,String status,Long price, User user){
          requestDao.updateStatusAndPriceAndUser(id, status,price,user);
     }
+
+    public void updateStatusAndReason(Long id,String status,String reason){
+        requestDao.updateStatusAndReason(id, status,reason);
+    }
 }
