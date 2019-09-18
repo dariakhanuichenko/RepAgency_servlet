@@ -19,46 +19,41 @@
 </head>
 
 <body>
-<%--<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">--%>
-<%--    <div class="container"><a class="navbar-brand" href="#">RepAgency</a>--%>
-<%--        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span--%>
-<%--                class="navbar-toggler-icon"></span></button>--%>
-<%--        <div class="collapse navbar-collapse"--%>
-<%--             id="navcol-1">--%>
-<%--            <ul class="nav navbar-nav mr-auto">--%>
-<%--                <li class="nav-item"  ><a class="nav-link"--%>
-<%--                                          href="/user/create_request"--%>
-<%--                                          th:text="#{new_request}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" ><a class="nav-link"--%>
-<%--                                         href="/user/all_requests"--%>
-<%--                                         "></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" ><a--%>
-<%--                        class="nav-link"--%>
-<%--                        href="/user/create_comment" >Create comment</a>--%>
-<%--                </li>--%>
-<%--                --%>
-<%--            </ul>--%>
-<%--            <span class="navbar-text actions"> <a class="login" th:href="@{/logout}" th:text="#{nav.logout}"></a></span>--%>
-<%--            <button class="btn" type="button" id="locales" value="uk"--%>
-<%--                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>--%>
-<%--            <button--%>
-<%--                    class="btn" type="button" id="locales2" value="en"--%>
-<%--                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</nav>--%>
-<%--<div th:if="${param.error}">--%>
-<%--    <div class="alert alert-danger" th:text="#{empty.value}">--%>
-<%--    </div>--%>
-<%--    <div th:if="${param.logout}">--%>
-<%--        <div class="alert alert-info">--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<a href="${pageContext.request.contextPath}/app/user/create_comment"> See my comment</a>
-<a href="${pageContext.request.contextPath}/app/user/all_requests"> See my requests</a>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="#">RepAgency</a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link"
+                                        href="${pageContext.request.contextPath}/app/user/create_request">
+                    Create request
+                </a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="${pageContext.request.contextPath}/app/user/all_requests">
+                    My requests
+                </a>
+                </li>
+
+                <li class="nav-item"><a class="nav-link"
+                                        href="${pageContext.request.contextPath}/app/user/create_comment">
+                    Create comment
+                </a>
+                </li>
+            </ul>
+            <span class="navbar-text actions"> <a class="login" href="${pageContext.request.contextPath}/app/logout" >Logout</a></span>
+            <button class="btn" type="button" id="locales" value="uk"
+                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
+            <button
+                    class="btn" type="button" id="locales2" value="en"
+                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+        </div>
+    </div>
+</nav>
+<%--<a href="${pageContext.request.contextPath}/app/user/create_comment"> See my comment</a>--%>
+<%--<a href="${pageContext.request.contextPath}/app/user/all_requests"> See my requests</a>--%>
 <div  style="margin:0 auto;" class="row justify-content-center align-items-center align-content-center align-self-center">
     <input name="request" type="hidden"/>
     <div class="col" style="width: 404px;">

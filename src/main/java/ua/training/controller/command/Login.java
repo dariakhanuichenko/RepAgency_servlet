@@ -53,7 +53,7 @@ public class Login implements Command {
             return "redirect:/api/app/user/create_request";
         } else if (user.get().getRole().equals(Role.ROLE_MANAGER)) {
             CommandUtility.setUserRole(request, Role.ROLE_MANAGER, email);
-            return "redirect:/api/app/manager/all-comments";
+            return "redirect:/api/app/manager/new_requests";
         }else {
             return "redirect:/index.jsp";
         }
