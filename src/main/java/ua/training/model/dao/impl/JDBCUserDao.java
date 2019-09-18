@@ -94,7 +94,6 @@ public class JDBCUserDao implements UserDao {
         }
     }
 
-    ////
     @Override
     public void close() {
         try {
