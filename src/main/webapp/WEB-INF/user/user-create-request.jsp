@@ -1,8 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="messages"/>
 
 
-<html lang="en">
+<html lang="${param.lang}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,27 +32,28 @@
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/user/create_request">
-                    Create request
+                    <fmt:message key="message.new.request"/>
                 </a>
                 </li>
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/user/all_requests">
-                    My requests
+                    <fmt:message key="message.my.requests"/>
                 </a>
                 </li>
 
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/user/create_comment">
-                    Create comment
+                    <fmt:message key="message.new.comment"/>
                 </a>
                 </li>
             </ul>
-            <span class="navbar-text actions"> <a class="login" href="${pageContext.request.contextPath}/app/logout" >Logout</a></span>
-            <button class="btn" type="button" id="locales" value="uk"
-                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
-            <button
-                    class="btn" type="button" id="locales2" value="en"
-                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+            <span class="navbar-text actions"> <a class="login" href="${pageContext.request.contextPath}/app/logout" >
+                <fmt:message key="message.logout"/>
+            </a></span>
+            <a class="btn" id="locales"
+               href="?lang=en"><img src="${pageContext.request.contextPath}/static/United-Kingdom-flag-icon.png" height="30px"/></a>
+            <a class="btn"
+               href="?lang=ua"><img src="${pageContext.request.contextPath}/static/Ukraine-Flag-icon.png" height="30px"/> </a>
         </div>
     </div>
 </nav>
@@ -59,12 +64,12 @@
     <div class="col" style="width: 404px;">
         <form  action="${pageContext.request.contextPath}/app/user/create_request"
                method="get">
-            <label>New Request</label>
+            <label><fmt:message key="message.new.request"/></label>
             <br/>
             <textarea name="request" rows="3"></textarea>
             <br/>
             <button type="submit"  class="btn btn-light">
-                Create
+                <fmt:message key="message.create"/>
             </button>
         </form>
     </div>

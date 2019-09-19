@@ -1,18 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="messages"/>
 <html>
-<head>
-    <title>Registration form</title>
+<head lang="${param.lang}">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css"/>
 
 </head>
 <body>
-        <h2>
-            This is registration form! <br/>
-        </h2>
+<a class="btn" id="locales"
+   href="?lang=en"><img src="${pageContext.request.contextPath}/static/United-Kingdom-flag-icon.png" height="30px"/></a>
+<a class="btn"
+   href="?lang=ua"><img src="${pageContext.request.contextPath}/static/Ukraine-Flag-icon.png" height="30px"/> </a>
+<%--        <h2>--%>
+<%--            This is registration form! <br/>--%>
+<%--        </h2>--%>
+<div class="login-form" align="center">
+        <form method="post" action="${pageContext.request.contextPath}/app/registration">
 
-        <form method="get" action="${pageContext.request.contextPath}/app/registration">
-
-            Name <input type="text" name="name"><br/>
-            Email <input type="text" name="email"><br/>
-            Password <input type="password" name="pass"><br/>
+            <div class="form-group">
+                <div class="input-group">
+<%--                    <span class="input-group-addon"><i class="fa fa-user"></i></span>--%>
+                    <input type="text" name="name" placeholder=<fmt:message key="message.name"/>><br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+<%--                    <span class="input-group-addon"><i class="fa fa-inbox"></i></span>--%>
+                    <input type="text"  name="email"><br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+<%--                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>--%>
+                    <input type="password"  name="pass"><br/>
+                </div>
+            </div>
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label>
                     select your role
@@ -29,10 +62,14 @@
                     </option >
                 </select>
             </div><br/>
-            <input class="button" type="submit" value="Submit">
-
+            <div class="form-group">
+                <button class="btn btn-primary login-btn btn-block" type="submit" value="Submit">
+                    <fmt:message key="message.registration"/>
+                </button>
+            </div>
+            <p class="message"><a href="${pageContext.request.contextPath}/index.jsp"> <fmt:message key="message.sign.in"/></a>
+            </p>
         </form>
 
-        <a href="${pageContext.request.contextPath}/index.jsp">Index</a>
 </body>
 </html>

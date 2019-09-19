@@ -44,6 +44,7 @@ public class Login implements Command {
         logger.info("User email " + email + " logged successfully.");
 
         request.getSession(true).setAttribute("userName", email);
+//        request.getSession(true).setAttribute("lang",request.getParameter("lang"));
 
         if (user.get().getRole().equals(Role.ROLE_MASTER)) {
             CommandUtility.setUserRole(request, Role.ROLE_MASTER, email);

@@ -18,6 +18,7 @@ public class CreateRequest implements Command{
         String requestName=request.getParameter("request");
 
         String userName= (String)request.getSession().getAttribute( "userName");
+        request.setAttribute("lang", request.getParameter("lang"));
 
         if (requestName == null || requestName.equals("")) {
             return "/WEB-INF/user/user-create-request.jsp";

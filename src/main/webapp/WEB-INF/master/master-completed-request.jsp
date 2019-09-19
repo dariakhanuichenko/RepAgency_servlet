@@ -1,7 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="messages"/>
+<html lang="${param.lang}">
 <head>
     <meta charset="utf-8">
     <title>Accepted requests</title>
@@ -10,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link href="${pageContext.request.contextPath}/resources/css/common.css" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -26,26 +30,27 @@
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/master/accepted_requests">
-                    Accepted requests
+                    <fmt:message key="message.accepted.requests"/>
                 </a>
                 </li>
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/master/in_progress_requests">
-                    In progress requests
+                    <fmt:message key="message.in.progress.requests"/>
                 </a>
                 </li>
                 <li class="nav-item"><a class="nav-link"
                                         href="${pageContext.request.contextPath}/app/master/completed_requests">
-                    Completed Requests
+                    <fmt:message key="message.completed.requests"/>
                 </a>
                 </li>
             </ul>
-            <span class="navbar-text actions"> <a class="login" href="${pageContext.request.contextPath}/app/logout" >Logout</a></span>
-            <button class="btn" type="button" id="locales" value="uk"
-                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
-            <button
-                    class="btn" type="button" id="locales2" value="en"
-                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+            <span class="navbar-text actions"> <a class="login" href="${pageContext.request.contextPath}/app/logout" >
+                <fmt:message key="message.logout"/>
+            </a></span>
+            <a class="btn" id="locales"
+               href="?lang=en"><img src="${pageContext.request.contextPath}/static/United-Kingdom-flag-icon.png" height="30px"/></a>
+            <a class="btn"
+               href="?lang=ua"><img src="${pageContext.request.contextPath}/static/Ukraine-Flag-icon.png" height="30px"/> </a>
         </div>
     </div>
 </nav>
@@ -53,7 +58,7 @@
 <div class="row">
     <div class="col">
         <p class="d-lg-flex justify-content-lg-center align-items-lg-end" style="font-size: 23px;">
-            <strong>Completed Requests</strong></p>
+            <strong> <fmt:message key="message.completed.requests"/></strong></p>
     </div>
 </div>
 
@@ -65,9 +70,9 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>request</th>
-                    <th>status</th>
-                    <th>price</th>
+                    <th> <fmt:message key="message.request"/></th>
+                    <th> <fmt:message key="message.status"/></th>
+                    <th> <fmt:message key="message.price"/></th>
                 </tr>
                 </thead>
                 <c:forEach items="${completedRequests}" var="request">

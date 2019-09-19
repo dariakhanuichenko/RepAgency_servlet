@@ -2,6 +2,7 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
+
   <servlet>
     <servlet-name>ServletName</servlet-name>
     <servlet-class>ua.training.controller.Servlet</servlet-class>
