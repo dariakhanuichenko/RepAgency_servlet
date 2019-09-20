@@ -2,10 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <html>
-<head lang="${param.lang}">
+<head lang="${sessionScope.lang}">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -19,9 +19,9 @@
 </head>
 <body>
 <a class="btn" id="locales"
-   href="?lang=en"><img src="${pageContext.request.contextPath}/static/United-Kingdom-flag-icon.png" height="30px"/></a>
+   href="?sessionLocale=en"><img src="${pageContext.request.contextPath}/static/United-Kingdom-flag-icon.png" height="30px"/></a>
 <a class="btn"
-   href="?lang=ua"><img src="${pageContext.request.contextPath}/static/Ukraine-Flag-icon.png" height="30px"/> </a>
+   href="?sessionLocale=ua"><img src="${pageContext.request.contextPath}/static/Ukraine-Flag-icon.png" height="30px"/> </a>
 <%--        <h2>--%>
 <%--            This is registration form! <br/>--%>
 <%--        </h2>--%>
@@ -70,6 +70,6 @@
             <p class="message"><a href="${pageContext.request.contextPath}/index.jsp"> <fmt:message key="message.sign.in"/></a>
             </p>
         </form>
-
+</div>
 </body>
 </html>

@@ -5,10 +5,10 @@
 <%@ page isELIgnored="false" %>
 
 <%@ page session="true" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 
-<html lang="${param.lang}">
+<html lang="${sessionScope.lang}">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

@@ -3,9 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html lang="${param.lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <meta charset="utf-8">
     <title>Accepted requests</title>
