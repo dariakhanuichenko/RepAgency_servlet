@@ -26,6 +26,14 @@ public class AccessFilter  implements Filter {
                 request.setAttribute("message", "AccessDenied");
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
+        }else if (path.contains("manager")) {
+            if (request.getSession().getAttribute("role").equals(Role.ROLE_MANAGER)){
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                request.setAttribute("error", true);
+                request.setAttribute("message", "AccessDenied");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
