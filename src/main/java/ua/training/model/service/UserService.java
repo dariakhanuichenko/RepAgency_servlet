@@ -2,6 +2,7 @@ package ua.training.model.service;
 
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.UserDao;
+import ua.training.model.dto.UserDTO;
 import ua.training.model.entity.Role;
 import ua.training.model.entity.User;
 
@@ -10,22 +11,28 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService {
-    private DaoFactory daoFactory = DaoFactory.getInstance();
-    private UserDao userDao = daoFactory.createUserDao();
+    private DaoFactory daoFactory ;
+    private UserDao userDao ;
 
-    public List<User> findAllUsers(){
-        return userDao.findAll();
+    public UserService() {
+        this.daoFactory = DaoFactory.getInstance();
+        this.userDao = daoFactory.createUserDao();
     }
 
-    public void addUser(String email, String name, String password, Role role) throws SQLException {
+    public Optional<List<User>> findAllUsers(){
+        return Optional.ofNullable(userDao.findAll());
+    }
+
+    public Optional<User> addUser(UserDTO user) throws SQLException {
         User newUser = User.builder()
-                .email(email)
-                .name(name)
-                .password(password)
-                .role(role)
+                .email(user.getEmail())
+                .name(user.getName())
+                .password(user.getPassword())
+                .role(user.getRole())
                 .active(true)
                 .build();
         userDao.add(newUser);
+        return Optional.ofNullable(newUser);
     }
 
     public Optional<User> findUser(String email, String password){

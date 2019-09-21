@@ -1,8 +1,11 @@
 package ua.training.controller.command;
 
+import ua.training.model.entity.Request;
 import ua.training.model.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 public class CompletedRequests implements Command {
 
@@ -16,9 +19,9 @@ public class CompletedRequests implements Command {
     public String execute(HttpServletRequest request) {
         String master= (String)request.getSession().getAttribute( "userName");
 
-
         try {
-            request.setAttribute("completedRequests",requestService.findByMasterAndStatus(master, "completed"));
+            requestService.findByMasterAndStatus(master, "completed").ifPresent(requests ->
+                    request.setAttribute("completedRequests", requests));
 
         } catch ( java.lang.Exception e) {
             e.printStackTrace();

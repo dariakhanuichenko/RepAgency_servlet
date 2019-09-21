@@ -1,5 +1,6 @@
 package ua.training.controller.command;
 
+import ua.training.model.dto.UserDTO;
 import ua.training.model.entity.Role;
 import ua.training.model.service.UserService;
 
@@ -20,7 +21,7 @@ public class Registration implements Command {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("pass");
-        String role= request.getParameter("role");
+        String role = request.getParameter("role");
         System.out.println("Regisatation: " + name + " " + email + " " + " " + password);
         if (name == null || name.equals("") || password == null || password.equals("") || email == null || email.equals("")) {
             return "/registration.jsp";
@@ -29,14 +30,20 @@ public class Registration implements Command {
             if (userService.findUser(email, password).isPresent()) {
                 throw new RuntimeException("User with this email already exist");
             }
-            String userRole="";
-            if(role.equals("ROLE_USER"))
-                userRole=Role.ROLE_USER.name();
-            if(role.equals("ROLE_MASTER"))
-                userRole=Role.ROLE_MASTER.name();
-            if(role.equals("ROLE_MANAGER"))
-                userRole=Role.ROLE_MANAGER.name();
-            userService.addUser(email, name, password, Role.valueOf(userRole));
+            String userRole = "";
+            if (role.equals("ROLE_USER"))
+                userRole = Role.ROLE_USER.name();
+            if (role.equals("ROLE_MASTER"))
+                userRole = Role.ROLE_MASTER.name();
+            if (role.equals("ROLE_MANAGER"))
+                userRole = Role.ROLE_MANAGER.name();
+
+            userService.addUser(
+                    UserDTO.builder().email(email)
+                    .name(name)
+                    .password(password)
+                    .role(Role.valueOf(userRole))
+                    .build());
 
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();

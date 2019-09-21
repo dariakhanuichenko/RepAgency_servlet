@@ -9,11 +9,9 @@ import java.util.Arrays;
 
 public class MakeAcceptedRequest implements Command {
 
-    private RequestService requestService;
     private UserService userService;
 
-    public MakeAcceptedRequest(RequestService requestService, UserService userService) {
-        this.requestService = requestService;
+    public MakeAcceptedRequest(UserService userService) {
         this.userService = userService;
     }
 

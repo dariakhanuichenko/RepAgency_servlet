@@ -25,10 +25,10 @@ public class Login implements Command {
         String email = request.getParameter("email");
         String password = request.getParameter("pass");
         if (email == null) return "/login.jsp";
-        System.out.println("user enter email: " + email + " " + password);
+        logger.info("user enter email: " + email + " " + password);
 
-        System.out.println("entering DB : ");
-        userService.findAllUsers().forEach(System.out::println);
+//        logger.info("entering DB : ");
+//        userService.findAllUsers().isPresent().get().forEach(logger::info);
 
         if (nonNull(request.getSession().getAttribute("userEmail"))) return "/welcome.jsp";
         Optional<User> user = userService.findUser(email, password);
@@ -44,7 +44,6 @@ public class Login implements Command {
         logger.info("User email " + email + " logged successfully.");
 
         request.getSession(true).setAttribute("userName", email);
-//        request.getSession(true).setAttribute("lang",request.getParameter("lang"));
 
         if (user.get().getRole().equals(Role.ROLE_MASTER)) {
             CommandUtility.setUserRole(request, Role.ROLE_MASTER, email);

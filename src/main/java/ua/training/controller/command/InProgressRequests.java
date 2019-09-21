@@ -18,7 +18,9 @@ public class InProgressRequests implements Command{
 
 
         try {
-            request.setAttribute("inProgressRequests",requestService.findByMasterAndStatus(master, "in progress"));
+
+            requestService.findByMasterAndStatus(master, "in progress").ifPresent(requests ->
+                    request.setAttribute("inProgressRequests", requests));
 
         } catch ( java.lang.Exception e) {
             e.printStackTrace();

@@ -2,9 +2,8 @@ package ua.training.controller.command;
 
 import ua.training.model.service.RequestService;
 import ua.training.model.service.UserService;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
+
 
 public class MakeRequestAcceptedDone implements Command {
 
@@ -24,7 +23,6 @@ public class MakeRequestAcceptedDone implements Command {
 
             String mastermail=request.getParameter("email");
             Long price=Long.parseLong(request.getParameter("price"));
-
 
             requestService.updateStatusAndPriceAndUser(id,"accepted",price,userService.findByEmail(mastermail).get());
         }catch( java.lang.Exception e) {

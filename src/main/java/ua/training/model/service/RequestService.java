@@ -7,12 +7,17 @@ import ua.training.model.entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class RequestService {
 
-    private DaoFactory daoFactory = DaoFactory.getInstance();
-    private RequestDao requestDao = daoFactory.createRequestDao();
+    private DaoFactory daoFactory;
+    private RequestDao requestDao;
 
+    public RequestService(){
+        this.daoFactory = DaoFactory.getInstance();
+        this.requestDao = daoFactory.createRequestDao();
+    }
 
     public void addRequest(String request, String userName) throws SQLException {
         Request newRequest = Request.builder()
@@ -24,10 +29,10 @@ public class RequestService {
         requestDao.add(newRequest);
     }
 
-    public List<Request>findByCreator(String creator){
-        return requestDao.findByCreator(creator);
+    public Optional<List<Request>>findByCreator(String creator){
+        return Optional.ofNullable(requestDao.findByCreator(creator));
     }
-
+//TODO: номер заказа не id
     public void updateRequest(String status, Long id){
         Request newRequest=Request.builder()
                 .status(status)
@@ -36,12 +41,12 @@ public class RequestService {
         requestDao.update(newRequest);
     }
 
-    public  List<Request> findByMasterAndStatus(String master, String status){
-        return requestDao.findByMasterAndStatus(master, status);
+    public  Optional<List<Request>> findByMasterAndStatus(String master, String status){
+        return Optional.ofNullable(requestDao.findByMasterAndStatus(master, status));
     }
 
-    public List<Request> findByStatus(String status){
-        return requestDao.findByStatus(status);
+    public Optional<List<Request>> findByStatus(String status){
+        return Optional.ofNullable(requestDao.findByStatus(status));
     }
 
     public void updateStatusAndPriceAndUser(Long id,String status,Long price, User user){

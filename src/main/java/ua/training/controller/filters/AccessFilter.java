@@ -19,7 +19,7 @@ public class AccessFilter  implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String path = request.getRequestURI();
         if (path.contains("master")) {
-            if (request.getSession().getAttribute("role") == Role.ROLE_MASTER) {
+            if (request.getSession().getAttribute("role").equals(Role.ROLE_MASTER)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 request.setAttribute("error", true);

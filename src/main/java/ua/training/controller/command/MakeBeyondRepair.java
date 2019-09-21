@@ -17,7 +17,7 @@ public class MakeBeyondRepair implements Command {
         try{
             System.out.println(request.getParameter("id"));
             Long id=Long.parseLong(request.getParameter("id"));
-            ;
+
             requestService.updateRequest("beyond repair", id);
         }catch( java.lang.Exception e) {
             e.printStackTrace();

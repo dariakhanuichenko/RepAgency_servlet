@@ -17,7 +17,7 @@ class CommandUtility {
         @SuppressWarnings("unchecked")
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession()
                 .getServletContext().getAttribute("loggedUsers");
-        if (loggedUsers == null) return false;
+        if (loggedUsers.isEmpty()) return false;
         if (loggedUsers.stream().anyMatch(email::equalsIgnoreCase)) return true;
         loggedUsers.add(email);
         request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);

@@ -15,7 +15,7 @@ public class NewRequests implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         try {
-            request.setAttribute("newRequests",requestService.findByStatus("new"));
+            requestService.findByStatus("new").ifPresent(requests -> request.setAttribute("newRequests",requests));
 
         } catch ( java.lang.Exception e) {
             e.printStackTrace();
