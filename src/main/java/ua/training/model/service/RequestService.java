@@ -29,14 +29,18 @@ public class RequestService {
         requestDao.add(newRequest);
     }
 
-    public Optional<List<Request>>findByCreator(String creator){
-        return Optional.ofNullable(requestDao.findByCreator(creator));
+    public Optional<List<Request>>findByCreatorAndStatus(String creator, String status){
+        return Optional.ofNullable(requestDao.findByCreatorAndStatus(creator,status));
     }
-//TODO: номер заказа не id
-    public void updateRequest(String status, Long id){
+
+    public Optional<List<Request>>findByCreatorAndNotStatus(String creator, String status){
+        return Optional.ofNullable(requestDao.findByCreatorAndNotStatus(creator,status));
+    }
+
+    public void updateRequest(String status, Long number){
         Request newRequest=Request.builder()
                 .status(status)
-                .id(id)
+                .requestNumber(number)
                 .build();
         requestDao.update(newRequest);
     }

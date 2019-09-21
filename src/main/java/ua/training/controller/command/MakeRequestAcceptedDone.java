@@ -17,9 +17,9 @@ public class MakeRequestAcceptedDone implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        Long id=Long.parseLong(request.getParameter("id"));
-        try{
 
+        try{
+            Long id=Long.parseLong(request.getParameter("id"));
 
             String mastermail=request.getParameter("email");
             Long price=Long.parseLong(request.getParameter("price"));

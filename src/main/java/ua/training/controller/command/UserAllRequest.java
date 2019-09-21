@@ -18,7 +18,9 @@ public class UserAllRequest implements Command {
         String userName= (String)request.getSession().getAttribute( "userName");
 
         try {
-            requestService.findByCreator(userName).ifPresent(requests->request.setAttribute("requests",requests));
+            requestService.findByCreatorAndStatus(userName,"rejected").ifPresent(requests->request.setAttribute("rejectRequests",requests));
+            requestService.findByCreatorAndNotStatus(userName, "rejected").ifPresent(requests->request.setAttribute("requests",requests));
+
 
         } catch ( java.lang.Exception e) {
             e.printStackTrace();

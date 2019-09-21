@@ -94,5 +94,36 @@
     </form>
 </div>
 
+<div style="margin-top: 15px" class="container">
+    <h2>
+        <fmt:message key="message.reject.requests"/>
+    </h2>
+    <form method="get">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+
+                <th><fmt:message key="message.request"/></th>
+                <th><fmt:message key="message.status"/></th>
+                <th><fmt:message key="message.price"/></th>
+<%--                <th><fmt:message key="message.reason"/></th>--%>
+            </tr>
+            </thead>
+            <c:forEach items="${rejectRequests}" var="rr">
+                <tbody>
+                <tr>
+                    <td><c:out value="${rr.request}"/></td>
+                    <td><c:out value="${rr.status}"/></td>
+<%--                    <td><c:out value="${rr.price}"/></td>--%>
+                    <td><c:out value="${rr.reason}"/></td>
+
+                </tr>
+                </tbody></c:forEach>
+        </table>
+
+    </form>
+</div>
+
 </body>
 </html>

@@ -79,11 +79,11 @@
                         <td><c:out value="${request.status}"/></td>
                         <td><c:out value="${request.price}"/></td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/done?id=${request.id}">
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/done?id=${request.requestNumber}">
                                 <fmt:message key="message.make.completed"/>
                             </a>
 
-                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/beyond_repair?id=${request.id}">
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/beyond_repair?id=${request.requestNumber}">
                                 <fmt:message key="message.make.beyond.repair"/>
                             </a>
                         </td>

@@ -37,18 +37,18 @@
             <div class="form-group">
                 <div class="input-group">
 <%--                    <span class="input-group-addon"><i class="fa fa-inbox"></i></span>--%>
-                    <input type="text"  name="email"><br/>
+                    <input type="text"  name="email" placeholder=<fmt:message key="message.email"/>><br/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
 <%--                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>--%>
-                    <input type="password"  name="pass"><br/>
+                    <input type="password"  name="pass"> placeholder=<fmt:message key="message.password"/><br/>
                 </div>
             </div>
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label>
-                    select your role
+                    <fmt:message key="message.select.role"/>
                 </label>
                 <select name="role" path="roles" class="selectpicker">
                     <option value="ROLE_USER">

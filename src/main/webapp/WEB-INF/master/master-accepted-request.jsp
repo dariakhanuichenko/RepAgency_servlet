@@ -83,7 +83,7 @@
                         <td><c:out value="${request.price}"/></td>
                         <td>
 
-                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?id=${request.id}">
+                            <a href="${pageContext.request.contextPath}/app/master/accepted_requests/make?id=${request.requestNumber}">
                                 <fmt:message key="message.make.in.progress"/>
                             </a>
                         </td>

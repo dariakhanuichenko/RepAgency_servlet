@@ -10,14 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class JDBCUserDao implements UserDao {
-    private String queryAdd = "INSERT INTO user (email , password , role , active) VALUES (? ,? ,? , ?)";
-    private String queryFindByEmail = "SELECT * FROM user WHERE email = ?";
+    private String queryAdd = "INSERT INTO user (email , password ,  active) VALUES (? ,? ,? )";
+    private String queryAddRole = "INSERT INTO  user_role(user_id,role_id) values(?,?)";
+    private String queryFindByEmail = "SELECT id,email,password,active , role_id FROM user  inner join user_role on user.id=user_role.user_id WHERE email = ?";
     private String queryFindAll = "SELECT * FROM user";
     private String queryFindById = "SELECT * FROM user where id=?";
-    private String queryUpdateUser = "UPDATE user SET email = ? , password = ?, role = ?, active = ? WHERE id = ?";
+    private String queryUpdateUser = "UPDATE user SET email = ? , password = ?,  active = ? WHERE id = ?";
+    private String queryUpdateRole = "update user_role set role_id=? where user_id=?";
     private String queryDeleteById = "DELETE FROM user  WHERE id = ?";
 
-    private String queryFindByRole = "SELECT * FROM user WHERE role = ?";
+    private String queryFindByRole = "SELECT id,email,password,active , role_id FROM reg_form.user  inner join reg_form.user_role on user.id=user_role.user_id WHERE role_id = ?";
     private Connection connection;
 
     public JDBCUserDao(Connection connection) {
@@ -27,11 +29,18 @@ public class JDBCUserDao implements UserDao {
     @Override
     public void add(User entity) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement(queryAdd)) {
-            ps.setString(1, entity.getEmail());
-            ps.setString(2, entity.getPassword());
-            ps.setInt(3, Arrays.asList(Role.values()).indexOf(entity.getRole()));
-            ps.setBoolean(4, entity.isActive());
-            ps.executeUpdate();
+            try (PreparedStatement ps1 = connection.prepareStatement(queryAddRole)) {
+                connection.setAutoCommit(false);
+                ps.setString(1, entity.getEmail());
+                ps.setString(2, entity.getPassword());
+                ps.setBoolean(3, entity.isActive());
+                ps.executeUpdate();
+
+                ps1.setLong(1, findByEmail(entity.getEmail()).getId());
+                ps1.setLong(2, Arrays.asList(Role.values()).indexOf(entity.getRole()) + 1);
+                ps1.executeUpdate();
+                connection.commit();
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Invalid input");
         }
@@ -72,12 +81,21 @@ public class JDBCUserDao implements UserDao {
     public void update(User entity) {
         try (PreparedStatement ps = connection.prepareStatement(
                 queryUpdateUser)) {
-            ps.setString(1, entity.getEmail());
-            ps.setString(2, entity.getPassword());
-            ps.setInt(3, Arrays.asList(Role.values()).indexOf(entity.getRole()));
-            ps.setBoolean(4, entity.isActive());
-            ps.setLong(5, entity.getId());
-            ps.executeUpdate();
+            try (PreparedStatement ps1 = connection.prepareStatement(queryUpdateRole)) {
+                connection.setAutoCommit(false);
+                ps.setString(1, entity.getEmail());
+                ps.setString(2, entity.getPassword());
+//                ps.setInt(3, Arrays.asList(Role.values()).indexOf(entity.getRole()));
+                ps.setBoolean(3, entity.isActive());
+                ps.setLong(4, entity.getId());
+                ps.executeUpdate();
+
+                ps1.setLong(1, Arrays.asList(Role.values()).indexOf(entity.getRole()) + 1);
+                ps1.setLong(2, entity.getId());
+                ps1.executeUpdate();
+
+                connection.commit();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -109,7 +127,7 @@ public class JDBCUserDao implements UserDao {
                 .id(rs.getLong("id"))
                 .email(rs.getString("email"))
                 .password(rs.getString("password"))
-                .role(Role.values()[rs.getInt("role")])
+                .role(Role.values()[rs.getInt("role_id") - 1])
                 .active(rs.getBoolean("active"))
                 .build();
     }
@@ -117,7 +135,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public User findById(Long id) {
         try (PreparedStatement ps = connection.prepareStatement
-                (queryFindById)) {
+                (queryFindByEmail)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

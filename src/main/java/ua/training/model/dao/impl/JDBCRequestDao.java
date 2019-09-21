@@ -10,17 +10,18 @@ import java.util.List;
 
 public class JDBCRequestDao implements RequestDao {
 
-    private String queryAdd = "INSERT INTO request ( request, status, price, creator) VALUES (?,?,?,?)";
+    private String queryAdd = "INSERT INTO request ( request, status, price, creator, request_number) VALUES (?,?,?,?,?)";
     private String queryFindAll = "SELECT * FROM request";
-    private String queryFindByCreator = "SELECT * FROM request WHERE creator=?";
-    private String queryUpdateRequest = "UPDATE request SET status = ? WHERE id = ?";
+    private String queryFindByCreatorAndStatus = "SELECT * FROM request WHERE creator=? and status=?";
+    private String queryFindByCreatorAndNotStatus = "SELECT * FROM request WHERE creator=? and status !=?";
+    private String queryUpdateRequest = "UPDATE request SET status = ? WHERE request_number = ?";
     private String queryDeleteById = "DELETE FROM request  WHERE id = ?";
     private String queryFindByMasterAndStatus = "SELECT request.* FROM request  inner join user  on request.user_id=user.id where user.email=? and request.status=?";
 
     private String queryFindByStatus="SELECT request.* FROM request  where  request.status=?";
 
-    private String queryUpdateStatusAndPriceandMaster="UPDATE request SET status = ?, price=?, user_id=? WHERE id = ?";
-    private String queryUpdateStatusAndReason="UPDATE request SET status = ?, reason=? WHERE id = ?";
+    private String queryUpdateStatusAndPriceandMaster="UPDATE request SET status = ?, price=?, user_id=? WHERE request_number = ?";
+    private String queryUpdateStatusAndReason="UPDATE request SET status = ?, reason=? WHERE request_number = ?";
 
     private Connection connection;
 
@@ -35,6 +36,7 @@ public class JDBCRequestDao implements RequestDao {
             ps.setString(2, entity.getStatus());
             ps.setInt(3, 0);
             ps.setString(4, entity.getCreator());
+            ps.setLong(5, (long)Math.random()*100/(long)(1+Math.random()*15));
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Invalid input");
@@ -63,11 +65,12 @@ public class JDBCRequestDao implements RequestDao {
     }
 
     @Override
-    public List<Request> findByCreator(String creator) {
+    public List<Request> findByCreatorAndStatus(String creator, String status) {
         List<Request> resultList = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement
-                (queryFindByCreator)) {
+                (queryFindByCreatorAndStatus)) {
             ps.setString(1, creator);
+            ps.setString(2, status);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 resultList.add(extractFromResultSet(rs));
@@ -79,6 +82,23 @@ public class JDBCRequestDao implements RequestDao {
         return resultList;
     }
 
+    @Override
+    public List<Request> findByCreatorAndNotStatus(String creator, String status) {
+        List<Request> resultList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement
+                (queryFindByCreatorAndNotStatus)) {
+            ps.setString(1, creator);
+            ps.setString(2, status);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                resultList.add(extractFromResultSet(rs));
+                System.out.println(resultList.get(resultList.size() - 1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return resultList;
+    }
     @Override
     public List<Request> findByMasterAndStatus(String master, String status) {
         List<Request> resultList = new ArrayList<>();
@@ -147,7 +167,7 @@ public class JDBCRequestDao implements RequestDao {
         try (PreparedStatement ps = connection.prepareStatement(
                 queryUpdateRequest)) {
             ps.setString(1, entity.getStatus());
-            ps.setLong(2, entity.getId());
+            ps.setLong(2, entity.getRequestNumber());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -183,6 +203,7 @@ public class JDBCRequestDao implements RequestDao {
                 .price(rs.getLong("price"))
                 .reason(rs.getString("reason"))
                 .creator(rs.getString("creator"))
+                .requestNumber(rs.getLong("request_number"))
                 .build();
     }
 }

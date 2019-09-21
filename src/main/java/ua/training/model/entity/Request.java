@@ -11,6 +11,7 @@ public class Request {
     private String reason;
     private String creator;
     private User master;
+    private Long requestNumber;
 
     public Request(){}
 
@@ -70,6 +71,14 @@ public class Request {
         this.master = master;
     }
 
+    public Long getRequestNumber() {
+        return requestNumber;
+    }
+
+    public void setRequestNumber(Long requestNumber) {
+        this.requestNumber = requestNumber;
+    }
+
     public static Builder builder() {
         return new Request().new Builder();
     }
@@ -108,6 +117,10 @@ public class Request {
         }
         public Builder master(User master) {
             Request.this.master = master;
+            return this;
+        }
+        public Builder requestNumber(Long number){
+            Request.this.requestNumber=number;
             return this;
         }
         public Request build() {
