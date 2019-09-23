@@ -19,7 +19,7 @@ public class RequestService {
         this.requestDao = daoFactory.createRequestDao();
     }
 
-    public void addRequest(String request, String userName) throws SQLException {
+    public Request addRequest(String request, String userName) throws SQLException {
         Request newRequest = Request.builder()
                 .request(request)
                 .status("new")
@@ -27,6 +27,7 @@ public class RequestService {
                 .creator(userName)
                 .build();
         requestDao.add(newRequest);
+        return newRequest;
     }
 
     public Optional<List<Request>>findByCreatorAndStatus(String creator, String status){

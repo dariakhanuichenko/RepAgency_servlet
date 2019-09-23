@@ -1,5 +1,7 @@
 package ua.training.controller.command;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.training.model.dto.UserDTO;
 import ua.training.model.entity.Role;
 import ua.training.model.service.UserService;
@@ -10,7 +12,7 @@ import java.sql.SQLException;
 public class Registration implements Command {
 
     private UserService userService;
-
+    private static final Logger logger = LogManager.getLogger(Login.class);
     public Registration(UserService userService) {
         this.userService = userService;
     }
@@ -22,13 +24,18 @@ public class Registration implements Command {
         String email = request.getParameter("email");
         String password = request.getParameter("pass");
         String role = request.getParameter("role");
-        System.out.println("Regisatation: " + name + " " + email + " " + " " + password);
+        logger.info("Regisatation: " + name + " " + email + " " + " " + password);
+
         if (name == null || name.equals("") || password == null || password.equals("") || email == null || email.equals("")) {
             return "/registration.jsp";
         }
         try {
-            if (userService.findUser(email, password).isPresent()) {
-                throw new RuntimeException("User with this email already exist");
+            if (userService.findUserEmail(email).isPresent()) {
+                request.setAttribute("error", true);
+//                request.setAttribute("inwalidInput", "User with this email already exist");
+                return "/registration.jsp";
+//                throw new RuntimeException("User with this email already exist");
+
             }
             String userRole = "";
             if (role.equals("ROLE_USER"))
@@ -44,6 +51,7 @@ public class Registration implements Command {
                     .password(password)
                     .role(Role.valueOf(userRole))
                     .build());
+
 
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();

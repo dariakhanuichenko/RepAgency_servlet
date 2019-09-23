@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
@@ -26,6 +27,13 @@
 <%--            This is registration form! <br/>--%>
 <%--        </h2>--%>
 <div class="login-form" align="center">
+
+
+    <c:if test="${requestScope.error eq true}">
+        <div class="alert alert-danger" align="center">
+            <strong>User with this email already exists</strong>
+        </div>
+    </c:if>
         <form method="post" action="${pageContext.request.contextPath}/app/registration">
 
             <div class="form-group">
@@ -43,7 +51,7 @@
             <div class="form-group">
                 <div class="input-group">
 <%--                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>--%>
-                    <input type="password"  name="pass"> placeholder=<fmt:message key="message.password"/><br/>
+                    <input type="password"  name="pass" placeholder=<fmt:message key="message.password"/>><br/>
                 </div>
             </div>
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -62,6 +70,12 @@
                     </option >
                 </select>
             </div><br/>
+
+<%--            <span class="red" >--%>
+<%--                <c:if test="not empty inwalidInput">--%>
+<%--            <c:out value=" ${inwalidInput}"/>--%>
+<%--                </c:if>--%>
+<%--            </span>--%>
             <div class="form-group">
                 <button class="btn btn-primary login-btn btn-block" type="submit" value="Submit">
                     <fmt:message key="message.registration"/>

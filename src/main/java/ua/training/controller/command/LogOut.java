@@ -6,7 +6,7 @@ public class LogOut implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         request.getSession().invalidate();
-        //TODO: убрать пользователя из контекста
+        CommandUtility.deleteUserFromContextAndSession(request);
         return "redirect:/api";
     }
 }

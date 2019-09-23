@@ -24,7 +24,8 @@ public class CreateRequest implements Command{
             return "/WEB-INF/user/user-create-request.jsp";
         }
         try {
-           requestService.addRequest(requestName, userName);
+           if(requestService.addRequest(requestName, userName)!=null)
+               request.setAttribute("sucess", true);
 
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();

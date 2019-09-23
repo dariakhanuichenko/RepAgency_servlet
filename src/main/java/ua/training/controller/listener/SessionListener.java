@@ -18,12 +18,12 @@ public class SessionListener implements HttpSessionListener {
                 .getAttribute("loggedUsers");
         String email = (String) httpSessionEvent.getSession()
                 .getAttribute("userEmail");
-        System.out.println(email);
-        System.out.println(loggedUsers);
+//        System.out.println(email);
+//        System.out.println(loggedUsers);
         loggedUsers.remove(email);
         httpSessionEvent.getSession().setAttribute("loggedUsers", loggedUsers);
-        System.out.println("listener works");
-        System.out.println(loggedUsers);
+//        System.out.println("listener works");
+//        System.out.println(loggedUsers);
 
     }
 }

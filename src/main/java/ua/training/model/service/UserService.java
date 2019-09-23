@@ -43,6 +43,10 @@ public class UserService {
         return Optional.empty();
     }
 
+    public Optional<User> findUserEmail(String email){
+        return Optional.ofNullable((userDao.findByEmail(email)));
+    }
+
     public Optional<User> findByEmail(String email){
         return Optional.ofNullable(userDao.findByEmail(email));
     }

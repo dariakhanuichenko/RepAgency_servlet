@@ -38,6 +38,7 @@ public class Login implements Command {
             return "/login.jsp";
         }
         if (CommandUtility.checkUserIsLogged(request, email)) {
+            request.setAttribute("error", true);
             logger.info("User email " + email + " already logged.");
             throw new RuntimeException("You already logged");
         }

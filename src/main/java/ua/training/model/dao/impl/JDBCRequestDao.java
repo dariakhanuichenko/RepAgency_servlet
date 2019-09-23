@@ -74,7 +74,6 @@ public class JDBCRequestDao implements RequestDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 resultList.add(extractFromResultSet(rs));
-                System.out.println(resultList.get(resultList.size() - 1));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -92,7 +91,6 @@ public class JDBCRequestDao implements RequestDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 resultList.add(extractFromResultSet(rs));
-                System.out.println(resultList.get(resultList.size() - 1));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

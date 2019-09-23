@@ -29,6 +29,12 @@
 <div class="login-form" align="center">
 
 <h1><fmt:message key="message.login"/></h1><br/>
+
+    <c:if test="${requestScope.error eq true}">
+        <div class="alert alert-danger" align="center">
+            <strong>User with this email is already logged</strong>
+        </div>
+    </c:if>
 <form method="post" action="${pageContext.request.contextPath}/app/login">
 
     <div class="form-group">

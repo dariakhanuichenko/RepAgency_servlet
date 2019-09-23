@@ -1,5 +1,7 @@
 package ua.training.controller.command;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.training.model.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MakeInProgress implements Command {
 
     private RequestService requestService;
-
+    private static final Logger logger = LogManager.getLogger(Login.class);
 
     public MakeInProgress(RequestService requestService) {
         this.requestService = requestService;
@@ -16,7 +18,7 @@ public class MakeInProgress implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         try{
-            System.out.println(request.getParameter("id"));
+            logger.info(request.getParameter("id"));
             Long id=Long.parseLong(request.getParameter("id"));
 
             requestService.updateRequest("in progress", id);

@@ -1,5 +1,7 @@
 package ua.training.controller;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.training.controller.command.*;
 import ua.training.controller.command.Exception;
 import ua.training.model.service.CommentService;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 public class Servlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
+    private static final Logger logger = LogManager.getLogger(Login.class);
 
     public void init(ServletConfig servletConfig) {
         UserService userService = new UserService();
@@ -66,9 +69,9 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
-        System.out.println(path);
+        logger.info(path);
         path = path.replaceAll(".*/app/", "");
-        System.out.println(path);
+        logger.info(path);
         Command command = commands.getOrDefault(path,
                 (r) -> "/index.jsp)");
         String page = command.execute(request);

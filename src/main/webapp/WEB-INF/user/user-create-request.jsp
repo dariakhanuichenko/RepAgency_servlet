@@ -1,6 +1,7 @@
 <!DOCTYPE html >
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
@@ -62,6 +63,11 @@
 <div  style="margin:0 auto;" class="row justify-content-center align-items-center align-content-center align-self-center">
     <input name="request" type="hidden"/>
     <div class="col" style="width: 404px;">
+        <c:if test="${requestScope.sucess eq true}">
+            <div class="alert alert-primary" align="center">
+                <strong><fmt:message key="message.request.created"/></strong>
+            </div>
+        </c:if>
         <form  action="${pageContext.request.contextPath}/app/user/create_request"
                method="get">
             <label><fmt:message key="message.new.request"/></label>
