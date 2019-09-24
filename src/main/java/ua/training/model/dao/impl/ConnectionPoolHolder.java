@@ -4,9 +4,9 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
-public class ConnectionPoolHolder {
+class ConnectionPoolHolder {
     private static volatile DataSource dataSource;
-    public static DataSource getDataSource(){
+    static DataSource getDataSource(){
 
         if (dataSource == null){
             synchronized (ConnectionPoolHolder.class) {
@@ -14,7 +14,7 @@ public class ConnectionPoolHolder {
                     BasicDataSource ds = new BasicDataSource();
                     ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-                    ds.setUrl("jdbc:mysql://localhost:1433/reg_form?useTimezone=true&serverTimezone=UTC");
+                    ds.setUrl("jdbc:mysql://localhost:1433/reg_form?useTimezone=true&serverTimezone=Europe/Kiev");
                     ds.setUsername("root");
                     ds.setPassword("11111");
                     ds.setMinIdle(5);
