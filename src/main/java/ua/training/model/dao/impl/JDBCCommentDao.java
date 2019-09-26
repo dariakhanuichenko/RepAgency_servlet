@@ -21,13 +21,16 @@ public class JDBCCommentDao implements CommentDao {
     private Connection connection;
     private UserDao userDao;
 
+    public JDBCCommentDao(){}
+
     JDBCCommentDao(Connection connection, UserDao userDao) {
         this.connection = connection;
         this.userDao = userDao;
     }
 
+
     @Override
-    public void add(Comment entity) throws SQLException {
+    public void add(Comment entity)  {
         try (PreparedStatement ps = connection.prepareStatement(queryAdd)) {
             ps.setString(1, entity.getComment());
             ps.setLong(2,entity.getUser().getId() );

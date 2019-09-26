@@ -1,5 +1,6 @@
 package ua.training.model.dao.impl;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import ua.training.model.dao.UserDao;
 import ua.training.model.entity.Role;
 import ua.training.model.entity.User;
@@ -41,9 +42,10 @@ public class JDBCUserDao implements UserDao {
                 ps1.executeUpdate();
                 connection.commit();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Invalid input");
         }
+//        catch (SQLException e) {
+//            throw new RuntimeException("Invalid input");
+//        }
     }
 
     @Override
@@ -96,7 +98,8 @@ public class JDBCUserDao implements UserDao {
 
                 connection.commit();
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
