@@ -68,10 +68,10 @@
                         <td><c:out value="${request.status}"/></td>
 
                         <td>
-                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/accept?id=${request.requestNumber}">
+                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/accept?id=${request.id}">
                                 Accept
                             </a>
-                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/reject?id=${request.requestNumber}">
+                            <a href="${pageContext.request.contextPath}/app/manager/new_requests/reject?id=${request.id}">
                                 Reject
                             </a>
                         </td>

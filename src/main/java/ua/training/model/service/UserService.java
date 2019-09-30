@@ -19,8 +19,8 @@ public class UserService {
         this.userDao = daoFactory.createUserDao();
     }
 
-    public Optional<List<User>> findAllUsers(){
-        return Optional.ofNullable(userDao.findAll());
+    public Optional<List<User>> findAllUsers(int page, int size){
+        return Optional.ofNullable(userDao.findAll(page,size));
     }
 
     public Optional<User> addUser(UserDTO user) throws SQLException {

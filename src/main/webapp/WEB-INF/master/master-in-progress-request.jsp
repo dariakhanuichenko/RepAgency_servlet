@@ -79,11 +79,11 @@
                         <td><c:out value="${request.status}"/></td>
                         <td><c:out value="${request.price}"/></td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/done?id=${request.requestNumber}">
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/done?id=${request.id}">
                                 <fmt:message key="message.make.completed"/>
                             </a>
 
-                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/beyond_repair?id=${request.requestNumber}">
+                            <a href="${pageContext.request.contextPath}/app/master/in_progress_requests/beyond_repair?id=${request.id}">
                                 <fmt:message key="message.make.beyond.repair"/>
                             </a>
                         </td>
@@ -96,6 +96,20 @@
     </div>
 </div>
 
+<div class="col-sm-12 col-md-7">
+    <%--            <c:if test="${elementsCount > size}">--%>
+    <div class="dataTables_paginate paging_simple_numbers text-right">
+        <ul class="pagination">
 
+            <c:forEach begin="1" end="${pagesCount}" var="i">
+                <li class="paginate_button page-item ${page == i ? 'active' : ''}">
+                    <a href="${pageContext.request.contextPath}/app/master/in_progress_requests?page=${i}" class="page-link">${i}</a>
+                </li>
+            </c:forEach>
+
+        </ul>
+    </div>
+    <%--            </c:if>--%>
+</div>
 </body>
 </html>

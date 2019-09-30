@@ -32,7 +32,7 @@
 
     <c:if test="${requestScope.error eq true}">
         <div class="alert alert-danger" align="center">
-            <strong>User with this email is already logged</strong>
+            <strong>User with this email is already logged or invalid password</strong>
         </div>
     </c:if>
 <form method="post" action="${pageContext.request.contextPath}/app/login">

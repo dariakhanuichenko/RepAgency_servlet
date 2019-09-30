@@ -16,4 +16,5 @@ public interface CommentDao extends GenericDao<Comment>{
         }
         return null;
     }
+
 }

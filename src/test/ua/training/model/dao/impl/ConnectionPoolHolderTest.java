@@ -44,7 +44,7 @@ public class ConnectionPoolHolderTest {
         try {
             when(connection.createStatement()).thenReturn(statement);
             when(statement.executeQuery(anyString())).thenReturn(resultSet);
-            commentDao.findAll();
+            commentDao.findAll(1,10);
             verify(connection).close();
         } catch (Exception e) {
             fail("sql exception");

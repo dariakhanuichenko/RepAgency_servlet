@@ -23,10 +23,13 @@ public class CommentService {
         this.commentDao = daoFactory.createCommentDao();
     }
 
-    public Optional<List<Comment>> findAllComment(){
-        return Optional.ofNullable(commentDao.findAll());
+    public Optional<List<Comment>> findAllComment(int page, int size){
+        return Optional.ofNullable(commentDao.findAll(page, size));
     }
 
+    public long findCount() {
+            return commentDao.findCount();
+    }
     public Comment addComment(String comment, User user) throws SQLException {
         Comment newComment = Comment.builder()
                 .comment(comment)

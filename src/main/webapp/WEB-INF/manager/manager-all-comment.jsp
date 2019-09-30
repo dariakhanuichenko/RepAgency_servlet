@@ -69,7 +69,7 @@
                 <tr>
                     <th> <fmt:message key="message.comment"/></th>
                     <th> <fmt:message key="message.date"/></th>
-                    <th> <fmt:message key="message.creator"/></th>
+
                 </tr>
                 </thead>
                 <c:forEach items="${comments}" var="comment">
@@ -77,7 +77,7 @@
                     <tr>
                         <td><c:out value="${comment.comment}"/></td>
                         <td><c:out value="${comment.date}"/></td>
-                        <td><c:out value="${comment.user.email}"/></td>
+
                     </tr>
                     </tbody>
                 </c:forEach>
@@ -85,7 +85,25 @@
 
         </div>
     </div>
+
 </div>
+        <div class="col-sm-12 col-md-7">
+<%--            <c:if test="${elementsCount > size}">--%>
+                <div class="dataTables_paginate paging_simple_numbers text-right">
+                    <ul class="pagination">
+
+                        <c:forEach begin="1" end="${pagesCount}" var="i">
+                            <li class="paginate_button page-item ${page == i ? 'active' : ''}">
+                                <a href="${pageContext.request.contextPath}/app/manager/all-comments?page=${i}" class="page-link">${i}</a>
+                            </li>
+                        </c:forEach>
+
+                    </ul>
+                </div>
+<%--            </c:if>--%>
+        </div>
+
+
 
 
 </body>

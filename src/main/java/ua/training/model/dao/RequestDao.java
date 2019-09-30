@@ -9,9 +9,9 @@ public interface RequestDao extends GenericDao<Request>{
 
     List<Request> findByCreatorAndStatus(String creator, String status);
 
-    List<Request> findByCreatorAndNotStatus(String creator, String status);
+    List<Request> findByCreatorAndNotStatus(String creator, String status, int page, int size);
 
-    List<Request> findByMasterAndStatus(String master, String status);
+    List<Request> findByMasterAndStatus(String master, String status,int page,int size);
 
     List<Request> findByStatus( String status);
 

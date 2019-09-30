@@ -19,11 +19,12 @@ public class JDBCUserDao implements UserDao {
     private String queryUpdateUser = "UPDATE user SET email = ? , password = ?,  active = ? WHERE id = ?";
     private String queryUpdateRole = "update user_role set role_id=? where user_id=?";
     private String queryDeleteById = "DELETE FROM user  WHERE id = ?";
+    private String queryCount = "SELECT COUNT(*) FROM request";
 
     private String queryFindByRole = "SELECT id,email,password,active , role_id FROM reg_form.user  inner join reg_form.user_role on user.id=user_role.user_id WHERE role_id = ?";
     private Connection connection;
 
-    public JDBCUserDao(Connection connection) {
+    JDBCUserDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -64,7 +65,7 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(int page, int size) {
         List<User> resultList = new ArrayList<>();
         try (Statement ps = connection.createStatement()) {
             ResultSet rs = ps.executeQuery(queryFindAll);
@@ -166,5 +167,22 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
         return resultList;
+    }
+
+    @Override
+    public long findCount() {
+        long count = 0;
+
+        try (PreparedStatement pstmt = connection.prepareStatement(queryCount)) {
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getLong(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
     }
 }

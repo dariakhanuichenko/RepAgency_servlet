@@ -90,7 +90,21 @@
         </div>
     </div>
 </div>
+<div class="col-sm-12 col-md-7">
+    <%--            <c:if test="${elementsCount > size}">--%>
+    <div class="dataTables_paginate paging_simple_numbers text-right">
+        <ul class="pagination">
 
+            <c:forEach begin="1" end="${pagesCount}" var="i">
+                <li class="paginate_button page-item ${page == i ? 'active' : ''}">
+                    <a href="${pageContext.request.contextPath}/app/master/completed_requests?page=${i}" class="page-link">${i}</a>
+                </li>
+            </c:forEach>
+
+        </ul>
+    </div>
+    <%--            </c:if>--%>
+</div>
 
 </body>
 </html>

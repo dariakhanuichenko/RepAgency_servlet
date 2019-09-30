@@ -40,7 +40,7 @@ public class JDBCCommentDaoTest {
 
     @Test
     public void findAll() {
-        List<Comment> test = commentDao.findAll();
+        List<Comment> test = commentDao.findAll(1,10);
         assertNotNull("Empty comment",test.get(test.size() - 1).getComment() );
         assertNotNull("Empty date",test.get(test.size() - 1).getDate());
         assertNotNull("Empty comment id",test.get(test.size() - 1).getId());
